@@ -26,4 +26,22 @@ interface ILogicalModel
      * @return int
      */
     public function increaseAttempt($identity, $name) : int;
+
+    /**
+     * Cleaning attempts
+     *
+     * @param string $identity User identity
+     * @param string $name Attempt name
+     * @return void
+     */
+    public function cleaningAttempt($identity, $name);
+
+    /**
+     * Clearing old attempts
+     *
+     * @param string $identity User identity
+     * @param int $expire Expire time
+     * @return void
+     */
+    public function clearingOverdue($identity, $expire);
 }

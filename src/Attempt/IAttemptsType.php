@@ -3,7 +3,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
- * Interface AttemptsType
+ * Interface IAttemptsType
  * @package DeftCMS\Components\b1tc0re\Security\Attempt
  */
 interface IAttemptsType
@@ -31,4 +31,12 @@ interface IAttemptsType
      * @return int
      */
     public function getExcessCaptcha() : int;
+
+    /**
+     * Return the lifetime of one warning in seconds
+     * Вернуть время жизни одного предупреждения в секундах
+     *
+     * @return int
+     */
+    public function getExpireTime() : int;
 }

@@ -85,6 +85,24 @@ class AttemptSystem
     }
 
     /**
+     * Clearing all attempts
+     */
+    public function clearingAttempt()
+    {
+        $this->logicalModel->cleaningAttempt($this->identity, $this->attemptType->getName());
+        $this->currentAttempts = 0;
+    }
+
+    /**
+     * Clearing old attempts
+     *
+     */
+    public function clearingOverdue()
+    {
+        $this->logicalModel->clearingOverdue($this->identity, $this->attemptType->getExpireTime());
+    }
+
+    /**
      * Get the number of warnings
      * @return int
      */
@@ -92,7 +110,7 @@ class AttemptSystem
     {
         if( !is_int($this->currentAttempts) )
         {
-            $this->currentStep = $this->logicalModel->getAttempts($this->identity, $this->attemptType->getName());
+            $this->currentAttempts = $this->logicalModel->getAttempts($this->identity, $this->attemptType->getName());
         }
 
         return $this->currentAttempts;
