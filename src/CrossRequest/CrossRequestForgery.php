@@ -131,6 +131,13 @@ class CrossRequestForgery implements ICrossRequestForgery
                 return;
             }
 
+            if( Engine::$DT->validation->hasRequest() && property_exists(Engine::$DT, 'validation') )
+            {
+                Engine::$DT->validation->setData('cross_request_forgery', true);
+                Engine::$DT->validation->output();
+                exit;
+            }
+
             fn_redirect('/error/cross_request_forgery/');
             return;
         }
