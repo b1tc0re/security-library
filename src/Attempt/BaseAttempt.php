@@ -78,7 +78,7 @@ class BaseAttempt implements IAttemptsType
      */
     public function getName(): string
     {
-        return $this->name || 'base';
+        return $this->name ?? 'base';
     }
 
     /**
@@ -89,7 +89,7 @@ class BaseAttempt implements IAttemptsType
      */
     public function getExcessLocked(): int
     {
-        return $this->excessLocked || 15;
+        return $this->excessLocked ?? 15;
     }
 
     /**
@@ -100,7 +100,7 @@ class BaseAttempt implements IAttemptsType
      */
     public function getExcessCaptcha(): int
     {
-        return $this->excessCaptcha || 5;
+        return $this->excessCaptcha ?? 5;
     }
 
     /**
@@ -111,6 +111,6 @@ class BaseAttempt implements IAttemptsType
      */
     public function getExpireTime(): int
     {
-        return $this->expireTime || 1800;
+        return $this->expireTime ?? 1800;
     }
 }

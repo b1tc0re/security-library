@@ -58,6 +58,7 @@ class AttemptSystem
             return FALSE;
         }
 
+        $this->clearingAttempt();
         return ($this->count() >= $this->attemptType->getExcessLocked());
     }
 
@@ -72,6 +73,7 @@ class AttemptSystem
             return FALSE;
         }
 
+        $this->clearingAttempt();
         return ($this->count() >= $this->attemptType->getExcessCaptcha());
     }
 
