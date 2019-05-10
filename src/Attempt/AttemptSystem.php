@@ -58,7 +58,7 @@ class AttemptSystem
             return FALSE;
         }
 
-        $this->clearingAttempt();
+        $this->clearingOverdue();
         return ($this->count() >= $this->attemptType->getExcessLocked());
     }
 
@@ -73,7 +73,7 @@ class AttemptSystem
             return FALSE;
         }
 
-        $this->clearingAttempt();
+        $this->clearingOverdue();
         return ($this->count() >= $this->attemptType->getExcessCaptcha());
     }
 
