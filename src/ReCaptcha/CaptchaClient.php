@@ -1,6 +1,7 @@
 <?php namespace DeftCMS\Components\b1tc0re\Security\ReCaptcha;
 
 use DeftCMS\Components\b1tc0re\Request\RequestClient;
+use GuzzleHttp\Exception\GuzzleException;
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
@@ -26,7 +27,7 @@ class CaptchaClient extends RequestClient
      *
      * @param array $params Request parameters
      * @return array
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function siteVerify(array $params)
     {

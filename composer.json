@@ -15,7 +15,8 @@
     }
   ],
   "require": {
-    "php": "^7.0"
+    "php": "^7.0",
+    "b1tc0re/request-client": "^v0.0.2"
   },
   "autoload": {
     "psr-4": {
