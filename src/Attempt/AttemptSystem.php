@@ -105,6 +105,15 @@ class AttemptSystem
     }
 
     /**
+     * Получить настройки системы
+     * @return IAttemptsType
+     */
+    public function getAttemptType()
+    {
+        return $this->attemptType;
+    }
+
+    /**
      * Get the number of warnings
      * @return int
      */
