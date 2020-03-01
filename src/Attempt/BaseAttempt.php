@@ -1,10 +1,17 @@
 <?php namespace DeftCMS\Components\b1tc0re\Security\Attempt;
 
+use DeftCMS\Components\b1tc0re\Security\Attempt\Interfaces\IAttemptsType;
+
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
- * Interface AttemptsType
- * @package DeftCMS\Components\b1tc0re\Security\Attempt
+ * Класс базовых предупреждении
+ * Base Warning Class
+ *
+ * @package     DeftCMS
+ * @author	    b1tc0re
+ * @copyright   2018-2020 DeftCMS (https://deftcms.ru/)
+ * @since	    Version 0.0.9
  */
 class BaseAttempt implements IAttemptsType
 {
@@ -56,6 +63,8 @@ class BaseAttempt implements IAttemptsType
 
     /**
      * Create instance from array options
+     * Создать экземпляр из массива параметров
+     *
      * @param array $options
      * @return BaseAttempt
      *

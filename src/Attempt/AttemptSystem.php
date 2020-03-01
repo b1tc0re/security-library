@@ -1,54 +1,69 @@
 <?php  namespace DeftCMS\Components\b1tc0re\Security\Attempt;
 
-use DeftCMS\Engine;
+use DeftCMS\Components\b1tc0re\Security\Attempt\Interfaces\IAttemptsType;
+use DeftCMS\Components\b1tc0re\Security\Attempt\Interfaces\ILogicalModel;
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
- * Система предуприждений
+ * Система предупреждений
+ * Warning system
  *
  * @package     DeftCMS
  * @author	    b1tc0re
- * @copyright   2018-2019 DeftCMS (https://deftcms.org/)
- * @since	    Version 0.0.1
+ * @copyright   2018-2020 DeftCMS (https://deftcms.ru/)
+ * @since	    Version 0.0.9
  */
 class AttemptSystem
 {
     /**
+     * Идентификатор предупреждения
      * @var string
      */
     private $identity;
 
     /**
+     * Модель логики для хранение предупреждении
+     * Logic Model for Warning Storage
+     *
      * @var ILogicalModel
      */
     private $logicalModel;
 
     /**
-     * @var int
-     */
-    protected $currentAttempts;
-
-    /**
+     * Модель настроек для получение настроек предупреждении
+     * Settings model for receiving alert settings
+     *
      * @var IAttemptsType
      */
     private $attemptType;
 
     /**
+     * Количество текущих предупреждения
+     * Number of current alerts
+     *
+     * @var int
+     */
+    protected $currentAttempts;
+
+    /**
      * AttemptSystem constructor.
-     * @param IAttemptsType $attemptType
-     * @param ILogicalModel $model
-     * @param null|string $identity default is user ip address
+     *
+     * @param IAttemptsType $attemptType - Модель настроек для получение настроек предупреждении
+     * @param ILogicalModel $model       - Модель логики для хранение предупреждении
+     * @param null|string $identity      - IP адресс пользователя
      */
     public function __construct(IAttemptsType $attemptType, ILogicalModel $model, $identity = null)
     {
-        $this->identity     = $identity ?? Engine::$DT->input->ip_address();
+        $this->identity     = $identity ?? DeftCMS\Engine::$DT->input->ip_address();
         $this->attemptType  = $attemptType;
         $this->logicalModel = $model;
     }
 
     /**
+     * Проверка, превышено ли максимальное количество попыток
      * Verification if the maximum number of attempts exceeded
+     *
      * @return bool
      */
     public function canExcess()
@@ -63,7 +78,9 @@ class AttemptSystem
     }
 
     /**
+     * Проверка, превышено ли максимальное количество попыток для показа капчи
      * Verification if the maximum number of attempts exceeded for show captcha
+     *
      * @return bool
      */
     public function canCaptcha()
@@ -78,7 +95,10 @@ class AttemptSystem
     }
 
     /**
+     * Увеличить одно предупреждение
      * Increase one attempt
+     *
+     * @return void
      */
     public function increaseAttempt()
     {
@@ -87,7 +107,10 @@ class AttemptSystem
     }
 
     /**
+     * Очистка всех предупреждении
      * Clearing all attempts
+     *
+     * @return void
      */
     public function clearingAttempt()
     {
@@ -96,7 +119,10 @@ class AttemptSystem
     }
 
     /**
+     * Очистка старых предупреждении
      * Clearing old attempts
+     *
+     * @return void
      *
      */
     public function clearingOverdue()
@@ -106,6 +132,8 @@ class AttemptSystem
 
     /**
      * Получить настройки системы
+     * Get system settings
+     *
      * @return IAttemptsType
      */
     public function getAttemptType()
@@ -114,7 +142,9 @@ class AttemptSystem
     }
 
     /**
+     * Получить количество предупреждений
      * Get the number of warnings
+     *
      * @return int
      */
     protected function count()

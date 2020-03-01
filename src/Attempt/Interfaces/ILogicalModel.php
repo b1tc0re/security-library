@@ -1,10 +1,14 @@
-<?php namespace DeftCMS\Components\b1tc0re\Security\Attempt;
+<?php namespace DeftCMS\Components\b1tc0re\Security\Attempt\Interfaces;
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
- * Interface AttemptsType
- * @package DeftCMS\Components\b1tc0re\Security\Attempt
+ * Интерфейс модели хранение предупреждении
+ *
+ * @package     DeftCMS
+ * @author	    b1tc0re
+ * @copyright   2018-2020 DeftCMS (https://deftcms.ru/)
+ * @since	    Version 0.0.9
  */
 interface ILogicalModel
 {
