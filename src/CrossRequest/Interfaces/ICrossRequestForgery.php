@@ -1,10 +1,15 @@
-<?php  namespace DeftCMS\Components\b1tc0re\Security\CrossRequest;
+<?php  namespace DeftCMS\Components\b1tc0re\Security\CrossRequest\Interfaces;
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * Interface ICrossRequestForgery
- * @package DeftCMS\Components\b1tc0re\Security\CrossRequest
+ *
+ * @package	    DeftCMS
+ * @category	Library
+ * @author	    b1tc0re
+ * @copyright   (c) 2018-2020, DeftCMS (http://deftcms.org)
+ * @since	    Version 0.0.9
  */
 interface ICrossRequestForgery
 {
