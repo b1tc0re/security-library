@@ -49,7 +49,7 @@ class CaptchaFactory extends Factory
      */
     public static function getHandler(string $handlerName = null, array $validHandlers = [] )
     {
-        self::$handler = DeftCMS\Engine::$DT->config->item('settings')['captcha']['captcha_handler'] ?? 'system';
+        self::$handler = \DeftCMS\Engine::$DT->config->item('settings')['captcha']['captcha_handler'] ?? 'system';
         return parent::getHandler($handlerName ?? self::$handler, self::$validHandlers);
     }
 }

@@ -91,11 +91,11 @@ class CrossRequestForgery implements ICrossRequestForgery
     public function __construct()
     {
         // Initialize config
-        $this->headerName       = DeftCMS\Engine::$DT->config->item('csrf_header_name');
-        $this->tokenName        = DeftCMS\Engine::$DT->config->item('csrf_token_name');
-        $this->cookieName       = DeftCMS\Engine::$DT->config->item('csrf_cookie_name');
-        $this->expire           = DeftCMS\Engine::$DT->config->item('csrf_expire');
-        $this->encryptionKey    = DeftCMS\Engine::$DT->config->item('encryption_key');
+        $this->headerName       = \DeftCMS\Engine::$DT->config->item('csrf_header_name');
+        $this->tokenName        = \DeftCMS\Engine::$DT->config->item('csrf_token_name');
+        $this->cookieName       = \DeftCMS\Engine::$DT->config->item('csrf_cookie_name');
+        $this->expire           = \DeftCMS\Engine::$DT->config->item('csrf_expire');
+        $this->encryptionKey    = \DeftCMS\Engine::$DT->config->item('encryption_key');
     }
 
     /**
@@ -106,7 +106,7 @@ class CrossRequestForgery implements ICrossRequestForgery
      */
     public function injectToken()
     {
-        $output = DeftCMS\Engine::$DT->output->get_output();
+        $output = \DeftCMS\Engine::$DT->output->get_output();
 
         // Inject into form
         $output = preg_replace('/(<(form|FORM)[^>]*(method|METHOD)="(post|POST)"[^>]*>)/',
@@ -119,7 +119,7 @@ class CrossRequestForgery implements ICrossRequestForgery
             $output);
 
 
-        DeftCMS\Engine::$DT->output->_display($output);
+        \DeftCMS\Engine::$DT->output->_display($output);
     }
 
     /**
@@ -131,23 +131,23 @@ class CrossRequestForgery implements ICrossRequestForgery
     public function validateToken()
     {
         // Is this a post request?
-        if (DeftCMS\Engine::$DT->input->method(true) === 'POST')
+        if (\DeftCMS\Engine::$DT->input->method(true) === 'POST')
         {
             // Is the token field set and valid?
-            $posted_token = DeftCMS\Engine::$DT->input->post($this->tokenName);
-            $header_token = DeftCMS\Engine::$DT->input->get_request_header($this->headerName);
+            $posted_token = \DeftCMS\Engine::$DT->input->post($this->tokenName);
+            $header_token = \DeftCMS\Engine::$DT->input->get_request_header($this->headerName);
 
-            if( $posted_token !== FALSE && $posted_token !=  DeftCMS\Engine::$DT->input->cookie($this->cookieName) ) {
+            if( $posted_token !== FALSE && $posted_token != \DeftCMS\Engine::$DT->input->cookie($this->cookieName) ) {
                 return;
             }
 
-            if( $header_token !== FALSE && $header_token !=  DeftCMS\Engine::$DT->input->cookie($this->cookieName) ) {
+            if( $header_token !== FALSE && $header_token !=  \DeftCMS\Engine::$DT->input->cookie($this->cookieName) ) {
                 return;
             }
 
-            if( property_exists(DeftCMS\Engine::$DT, 'validation') && DeftCMS\Engine::$DT->validation->hasRequest() ) {
-                DeftCMS\Engine::$DT->validation->setData('cross_request_forgery', true);
-                DeftCMS\Engine::$DT->validation->output();
+            if( property_exists(\DeftCMS\Engine::$DT, 'validation') && \DeftCMS\Engine::$DT->validation->hasRequest() ) {
+                \DeftCMS\Engine::$DT->validation->setData('cross_request_forgery', true);
+                \DeftCMS\Engine::$DT->validation->output();
                 exit;
             }
 
@@ -164,12 +164,12 @@ class CrossRequestForgery implements ICrossRequestForgery
      */
     public function generateToken()
     {
-        if (DeftCMS\Engine::$DT->input->cookie($this->cookieName) === NULL)
+        if (\DeftCMS\Engine::$DT->input->cookie($this->cookieName) === NULL)
         {
             // Generate a token and store it on session, since old one appears to have expired.
             self::$token = md5(uniqid() . microtime() . rand() . $this->encryptionKey);
 
-            DeftCMS\Engine::$DT->input->set_cookie([
+            \DeftCMS\Engine::$DT->input->set_cookie([
                 'name'      => $this->cookieName,
                 'value'     => self::$token,
                 'httponly'  => true,
@@ -179,10 +179,10 @@ class CrossRequestForgery implements ICrossRequestForgery
         else
         {
             // Set it to local variable for easy access
-            self::$token = DeftCMS\Engine::$DT->input->cookie($this->cookieName);
+            self::$token = \DeftCMS\Engine::$DT->input->cookie($this->cookieName);
         }
 
-        DeftCMS\Engine::$DT->template->setData('crossRequest', [
+        \DeftCMS\Engine::$DT->template->setData('crossRequest', [
             'name'  => $this->tokenName,
             'value' => self::$token
         ]);

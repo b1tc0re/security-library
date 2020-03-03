@@ -139,7 +139,7 @@ class SystemCaptcha implements IHandler
         }
 
         if( $this->font_path === '' ||  !file_exists($this->font_path) ) {
-            $this->font_path = realpath(DeftCMS\Engine::$DT->config->item('storage_path') . '/fonts/captcha.ttf');
+            $this->font_path = realpath(\DeftCMS\Engine::$DT->config->item('storage_path') . '/fonts/captcha.ttf');
         }
 
         return $this;
@@ -156,7 +156,7 @@ class SystemCaptcha implements IHandler
         $this->initialize($params);
 
         if ( !extension_loaded('gd') ) {
-            DeftCMS\Engine::$Log->critical('Расширение php-gd не загружено или не установлено');
+            \DeftCMS\Engine::$Log->critical('Расширение php-gd не загружено или не установлено');
             return;
         }
 
@@ -257,12 +257,12 @@ class SystemCaptcha implements IHandler
         //  Generate the image
         // -----------------------------------
 
-        DeftCMS\Engine::$DT->output->set_content_type('image/jpeg');
+        \DeftCMS\Engine::$DT->output->set_content_type('image/jpeg');
         imagejpeg($im);
         imagedestroy($im);
 
-        DeftCMS\Engine::$DT->session->set_flashdata($this->flash_session_name, $this->word);
-        DeftCMS\Engine::$DT->output->_display();
+        \DeftCMS\Engine::$DT->session->set_flashdata($this->flash_session_name, $this->word);
+        \DeftCMS\Engine::$DT->output->_display();
     }
 
     /**
@@ -276,7 +276,7 @@ class SystemCaptcha implements IHandler
      */
     public function validate(string $value, string $ip_address = null)
     {
-        return $value === DeftCMS\Engine::$DT->session->flashdata($this->flash_session_name);
+        return $value === \DeftCMS\Engine::$DT->session->flashdata($this->flash_session_name);
     }
 
     /**
@@ -395,7 +395,7 @@ class SystemCaptcha implements IHandler
      */
     public function getCaptchaTemplate()
     {
-        return DeftCMS\Engine::$DT->template->renderLayer('captcha', [ 'captcha' => ['handler' => $this->getName() ] ], true);
+        return \DeftCMS\Engine::$DT->template->renderLayer('captcha', [ 'captcha' => ['handler' => $this->getName() ] ], true);
     }
 
     /**

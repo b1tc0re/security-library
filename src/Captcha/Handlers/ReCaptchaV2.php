@@ -61,16 +61,16 @@ class ReCaptchaV2 implements IHandler
     /**
      * ReCaptchaV2 constructor.
      *
-     * @throws DeftCMS\Core\Exceptions\InvalidSettingsException
+     * @throws \DeftCMS\Core\Exceptions\InvalidSettingsException
      */
     public function __construct()
     {
         // Global settings
-        $params = DeftCMS\Engine::$DT->config->item('settings');
+        $params = \DeftCMS\Engine::$DT->config->item('settings');
 
         if( !array_key_exists('captcha', $params) || !array_key_exists('reCaptchaV2', $params['captcha']) )
         {
-            throw new DeftCMS\Core\Exceptions\InvalidSettingsException('Не найдены настройки google reCaptchaV2');
+            throw new \DeftCMS\Core\Exceptions\InvalidSettingsException('Не найдены настройки google reCaptchaV2');
         }
 
         $this->privateKey = $params['captcha']['private_key'];
@@ -93,22 +93,22 @@ class ReCaptchaV2 implements IHandler
             $response = $this->httpClient->siteVerify([
                 'secret'    => $this->privateKey,
                 'response'  => $value,
-                'remoteip'  => $ip_address || DeftCMS\Engine::$DT->input->ip_address()
+                'remoteip'  => $ip_address || \DeftCMS\Engine::$DT->input->ip_address()
             ]);
         }
         catch (GuzzleException $ex)
         {
-            DeftCMS\Engine::$Log->critical(sprintf('ReCaptchaV2 request exception: %s', $ex->getMessage()));
+            \DeftCMS\Engine::$Log->critical(sprintf('ReCaptchaV2 request exception: %s', $ex->getMessage()));
             return false;
         }
 
         if( array_key_exists('error-codes', $response) && !empty($response['error-codes']) )
         {
             if( array_key_exists($response['error-codes'], $this->errorsResponse) ) {
-                DeftCMS\Engine::$Log->critical('ReCaptchaV2 request error: %s', $this->errorsResponse[$response['error-codes']]);
+                \DeftCMS\Engine::$Log->critical('ReCaptchaV2 request error: %s', $this->errorsResponse[$response['error-codes']]);
             }
             else {
-                DeftCMS\Engine::$Log->critical('ReCaptchaV2 request unknown error: %s', $response['error-codes']);
+                \DeftCMS\Engine::$Log->critical('ReCaptchaV2 request unknown error: %s', $response['error-codes']);
             }
 
             return false;
@@ -141,7 +141,7 @@ class ReCaptchaV2 implements IHandler
             'site_key' => $this->publicKey
         ];
 
-        return DeftCMS\Engine::$DT->template->renderLayer('captcha', [ 'captcha' => $data ], true);
+        return \DeftCMS\Engine::$DT->template->renderLayer('captcha', [ 'captcha' => $data ], true);
     }
 
     /**

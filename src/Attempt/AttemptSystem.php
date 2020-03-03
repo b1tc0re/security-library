@@ -55,7 +55,7 @@ class AttemptSystem
      */
     public function __construct(IAttemptsType $attemptType, ILogicalModel $model, $identity = null)
     {
-        $this->identity     = $identity ?? DeftCMS\Engine::$DT->input->ip_address();
+        $this->identity     = $identity ?? \DeftCMS\Engine::$DT->input->ip_address();
         $this->attemptType  = $attemptType;
         $this->logicalModel = $model;
     }
