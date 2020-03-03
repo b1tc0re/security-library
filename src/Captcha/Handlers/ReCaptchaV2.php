@@ -73,8 +73,8 @@ class ReCaptchaV2 implements IHandler
             throw new \DeftCMS\Core\Exceptions\InvalidSettingsException('Не найдены настройки google reCaptchaV2');
         }
 
-        $this->privateKey = $params['captcha']['private_key'];
-        $this->publicKey  = $params['captcha']['publicKey'];
+        $this->privateKey = $params['captcha']['recaptcha_secret'];
+        $this->publicKey  = $params['captcha']['recaptcha_sitekey'];
         $this->httpClient = new ReCaptchaClient();
     }
 
