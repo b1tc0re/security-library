@@ -3,6 +3,7 @@
   "description": "Security library for DeftCMS",
   "keywords": [
     "b1tc0re",
+    "DeftCMS",
     "Security"
   ],
   "minimum-stability": "dev",
@@ -16,6 +17,7 @@
   ],
   "require": {
     "php": "^7.0",
+    "ext-gd": "*",
     "b1tc0re/request-client": "^v0.0.2"
   },
   "autoload": {
