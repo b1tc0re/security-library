@@ -1,4 +1,4 @@
-<?php namespace DeftCMS\Libraries\Captcha\Handlers;
+<?php namespace DeftCMS\Components\b1tc0re\Security\Captcha\Handlers;
 
 use DeftCMS\Components\b1tc0re\Security\Captcha\Interfaces\IHandler;
 

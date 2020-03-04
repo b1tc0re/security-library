@@ -1,6 +1,7 @@
 <?php namespace DeftCMS\Components\b1tc0re\Security\Captcha;
 
 use DeftCMS\Components\b1tc0re\Security\Captcha\Handlers\ReCaptchaV2;
+use DeftCMS\Components\b1tc0re\Security\Captcha\Handlers\SystemCaptcha;
 use DeftCMS\Components\b1tc0re\Security\Captcha\Interfaces\IHandler;
 use DeftCMS\Core\FactoryHandlers\Exceptions\ExceptionFactory;
 use DeftCMS\Core\FactoryHandlers\Factory;
