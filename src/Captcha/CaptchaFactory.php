@@ -4,7 +4,6 @@ use DeftCMS\Components\b1tc0re\Security\Captcha\Handlers\ReCaptchaV2;
 use DeftCMS\Components\b1tc0re\Security\Captcha\Interfaces\IHandler;
 use DeftCMS\Core\FactoryHandlers\Exceptions\ExceptionFactory;
 use DeftCMS\Core\FactoryHandlers\Factory;
-use DeftCMS\Libraries\Captcha\Handlers\SystemCaptcha;
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
