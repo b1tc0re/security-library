@@ -28,7 +28,7 @@ class CaptchaFactory extends Factory
      */
     protected static $validHandlers = [
         'system'           => SystemCaptcha::class,
-        'reCaptchaV2'      => ReCaptchaV2::class
+        'recaptchav2'      => ReCaptchaV2::class
     ];
 
     /**
