@@ -68,7 +68,9 @@ class ReCaptchaV2 implements IHandler
         // Global settings
         $params = \DeftCMS\Engine::$DT->config->item('settings');
 
-        if( !array_key_exists('captcha', $params) || !array_key_exists('reCaptchaV2', $params['captcha']) )
+        if( !array_key_exists('captcha', $params)
+            || !array_key_exists('recaptcha_secret', $params['captcha'])
+            || !array_key_exists('recaptcha_sitekey', $params['captcha']) )
         {
             throw new \DeftCMS\Core\Exceptions\InvalidSettingsException('Не найдены настройки google reCaptchaV2');
         }
