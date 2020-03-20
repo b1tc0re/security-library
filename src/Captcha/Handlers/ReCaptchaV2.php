@@ -66,17 +66,15 @@ class ReCaptchaV2 implements IHandler
     public function __construct()
     {
         // Global settings
-        $params = \DeftCMS\Engine::$DT->config->item('settings');
+        $params = fn_get_module_config('captcha')[strtolower($this->getName())];
 
-        if( !array_key_exists('captcha', $params)
-            || !array_key_exists('recaptcha_secret', $params['captcha'])
-            || !array_key_exists('recaptcha_sitekey', $params['captcha']) )
+        if( !array_key_exists('recaptcha_secret', $params) || !array_key_exists('recaptcha_sitekey', $params) )
         {
-            throw new \DeftCMS\Core\Exceptions\InvalidSettingsException('Не найдены настройки google reCaptchaV2');
+            throw new \DeftCMS\Core\Exceptions\InvalidSettingsException('Не найдены настройки google '. $this->getName());
         }
 
-        $this->privateKey = $params['captcha']['recaptcha_secret'];
-        $this->publicKey  = $params['captcha']['recaptcha_sitekey'];
+        $this->privateKey = $params['recaptcha_secret'];
+        $this->publicKey  = $params['recaptcha_sitekey'];
         $this->httpClient = new ReCaptchaClient();
     }
 
