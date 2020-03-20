@@ -151,7 +151,7 @@ class ReCaptchaV2 implements IHandler
     {
         $data = [
             'handler'  => $this->getName(),
-            'site_key' => $this->publicKey
+            'sitekey' => $this->publicKey
         ];
 
         return \DeftCMS\Engine::$DT->template->renderLayer('captcha', [ 'captcha' => $data ], true);
@@ -166,5 +166,18 @@ class ReCaptchaV2 implements IHandler
     public function getName()
     {
         return 'reCaptchaV2';
+    }
+
+    /**
+     * Получить параметры обработчика
+     * Get handler parameters
+     *
+     * @return array
+     */
+    public function getParams()
+    {
+        return [
+            'sitekey' => $this->publicKey
+        ];
     }
 }

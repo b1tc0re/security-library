@@ -49,4 +49,12 @@ interface IHandler
      * @return string
      */
     public function getName();
+
+    /**
+     * Получить параметры обработчика
+     * Get handler parameters
+     *
+     * @return array
+     */
+    public function getParams();
 }

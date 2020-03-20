@@ -113,6 +113,21 @@ class SystemCaptcha implements IHandler
     protected $flash_session_name = '_captcha';
 
     /**
+     * URI-адресс для отоброжение капчи
+     * @var string
+     */
+    protected $display;
+
+    /**
+     * SystemCaptcha constructor.
+     */
+    public function __construct()
+    {
+        $routes = fn_get_module_routes('captcha');
+        $this->display = array_shift($routes);
+    }
+
+    /**
      * Инициализация параметров
      * Parameter initialization
      *
@@ -123,7 +138,6 @@ class SystemCaptcha implements IHandler
     {
         foreach ($params as $prop => $value)
         {
-
             if( property_exists($this, $prop) && is_array($value) )
             {
                 foreach ($value as $a_name => $a_value)
@@ -407,5 +421,18 @@ class SystemCaptcha implements IHandler
     public function getName()
     {
         return 'system';
+    }
+
+    /**
+     * Получить параметры обработчика
+     * Get handler parameters
+     *
+     * @return array
+     */
+    public function getParams()
+    {
+        return [
+            'display' => $this->display
+        ];
     }
 }
