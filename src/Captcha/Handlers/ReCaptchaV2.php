@@ -106,11 +106,22 @@ class ReCaptchaV2 implements IHandler
 
         if( array_key_exists('error-codes', $response) && !empty($response['error-codes']) )
         {
-            if( array_key_exists($response['error-codes'], $this->errorsResponse) ) {
-                \DeftCMS\Engine::$Log->critical('ReCaptchaV2 request error: %s', $this->errorsResponse[$response['error-codes']]);
+            if( is_array($response['error-codes']) )
+            {
+                $response['error-codes'] = array_pop ($response['error-codes']);
             }
-            else {
-                \DeftCMS\Engine::$Log->critical('ReCaptchaV2 request unknown error: %s', $response['error-codes']);
+
+            if( array_key_exists($response['error-codes'], $this->errorsResponse) )
+            {
+                \DeftCMS\Engine::$Log->critical('ReCaptchaV2 request error: [error_code]', [
+                    '[error_code]' => $this->errorsResponse[$response['error-codes']]
+                ]);
+            }
+            else
+            {
+                \DeftCMS\Engine::$Log->critical('ReCaptchaV2 request unknown error: [error_code]', [
+                    '[error_code]' => $this->errorsResponse[$response['error-codes']]
+                ]);
             }
 
             return false;
