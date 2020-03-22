@@ -50,6 +50,7 @@ class ReCaptchaV2 implements IHandler
      * @var array
      */
     protected $errorsResponse = [
+        'invalid-keys'                      => 'The secret parameter is invalid.',
         'missing-input-secret'              => 'The secret parameter is missing.',
         'invalid-input-secret'              => 'The secret parameter is invalid or malformed.',
         'missing-input-response'            => 'The response parameter is missing.',
@@ -104,10 +105,7 @@ class ReCaptchaV2 implements IHandler
 
         if( array_key_exists('error-codes', $response) && !empty($response['error-codes']) )
         {
-            if( is_array($response['error-codes']) )
-            {
-                $response['error-codes'] = array_pop ($response['error-codes']);
-            }
+            $response['error-codes'] = array_pop ($response['error-codes']);
 
             if( array_key_exists($response['error-codes'], $this->errorsResponse) )
             {
@@ -118,7 +116,7 @@ class ReCaptchaV2 implements IHandler
             else
             {
                 \DeftCMS\Engine::$Log->critical('ReCaptchaV2 request unknown error: [error_code]', [
-                    '[error_code]' => $this->errorsResponse[$response['error-codes']]
+                    '[error_code]' => $response['error-codes']
                 ]);
             }
 
