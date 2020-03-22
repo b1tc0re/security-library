@@ -432,7 +432,7 @@ class SystemCaptcha implements IHandler
     public function getParams()
     {
         return [
-            'display' => $this->display
+            'display' => base_url($this->display)
         ];
     }
 }
