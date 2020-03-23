@@ -119,7 +119,7 @@ class AttemptSystem
     }
 
     /**
-     * Очистка старых предупреждении
+     * Очистка всех старых предупреждении
      * Clearing old attempts
      *
      * @return void
@@ -127,7 +127,7 @@ class AttemptSystem
      */
     public function clearingOverdue()
     {
-        $this->logicalModel->clearingOverdue($this->identity,  $this->attemptType->getName(), $this->attemptType->getExpireTime());
+        $this->logicalModel->clearingOverdue($this->attemptType->getName(), $this->attemptType->getExpireTime());
     }
 
     /**
