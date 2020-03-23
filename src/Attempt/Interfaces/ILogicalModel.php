@@ -48,4 +48,14 @@ interface ILogicalModel
      * @return void
      */
     public function clearingOverdue($identity, $expire);
+
+    /**
+     * Получить время через которое истечет первое предупреждение
+     * Get the time after which the first warning expires
+     *
+     * @param string $identity
+     * @param string $name
+     * @return int
+     */
+    public function getExcessTime($identity, $name);
 }

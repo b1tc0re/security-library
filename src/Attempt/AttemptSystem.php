@@ -142,6 +142,19 @@ class AttemptSystem
     }
 
     /**
+     * Получить время через которое истечет первое предупреждение
+     * Get the time after which the first warning expires
+     *
+     * @return int
+     */
+    public function getExcessTime()
+    {
+        $timestamp =  $this->logicalModel->getExcessTime($this->identity, $this->attemptType->getName());
+        $locked = $timestamp + $this->attemptType->getExpireTime() - time();
+        return $locked > 0 ? $locked : 0;
+    }
+
+    /**
      * Получить количество предупреждений
      * Get the number of warnings
      *
