@@ -44,10 +44,11 @@ interface ILogicalModel
      * Clearing old attempts
      *
      * @param string $identity User identity
+     * @param string $name Attempt name
      * @param int $expire Expire time
      * @return void
      */
-    public function clearingOverdue($identity, $expire);
+    public function clearingOverdue($identity, $name, $expire);
 
     /**
      * Получить время через которое истечет первое предупреждение

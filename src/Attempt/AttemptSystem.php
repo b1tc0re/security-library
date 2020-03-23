@@ -127,7 +127,7 @@ class AttemptSystem
      */
     public function clearingOverdue()
     {
-        $this->logicalModel->clearingOverdue($this->identity, $this->attemptType->getExpireTime());
+        $this->logicalModel->clearingOverdue($this->identity,  $this->attemptType->getName(), $this->attemptType->getExpireTime());
     }
 
     /**
