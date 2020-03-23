@@ -290,7 +290,7 @@ class SystemCaptcha implements IHandler
      */
     public function validate(string $value, string $ip_address = null)
     {
-        return $value === \DeftCMS\Engine::$DT->session->flashdata($this->flash_session_name);
+        return strtolower($value) === strtolower(\DeftCMS\Engine::$DT->session->flashdata($this->flash_session_name));
     }
 
     /**
