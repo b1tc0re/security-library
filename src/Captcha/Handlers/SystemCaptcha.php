@@ -123,7 +123,7 @@ class SystemCaptcha implements IHandler
      */
     public function __construct()
     {
-        $routes = fn_get_module_routes('captcha');
+        $routes = array_flip(fn_get_module_routes('captcha'));
         $this->display = array_shift($routes);
     }
 
