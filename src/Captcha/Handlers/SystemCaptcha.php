@@ -78,7 +78,7 @@ class SystemCaptcha implements IHandler
      *
      * @var string
      */
-    protected $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    protected $pool = '123456789abcdefghijklmnpqrstuvwxyzABCDEFGHIJKLMNPQRSTUVWXYZ';
 
     /**
      * Цветовая схема для рисунка капчи
