@@ -137,15 +137,16 @@ class CrossRequestForgery implements ICrossRequestForgery
             $posted_token = \DeftCMS\Engine::$DT->input->post($this->tokenName);
             $header_token = \DeftCMS\Engine::$DT->input->get_request_header($this->headerName);
 
-            if( $posted_token !== FALSE && $posted_token != \DeftCMS\Engine::$DT->input->cookie($this->cookieName) ) {
+            if( $posted_token !== null && $posted_token != \DeftCMS\Engine::$DT->input->cookie($this->cookieName) ) {
                 return;
             }
 
-            if( $header_token !== FALSE && $header_token !=  \DeftCMS\Engine::$DT->input->cookie($this->cookieName) ) {
+            if( $header_token !== null && $header_token !=  \DeftCMS\Engine::$DT->input->cookie($this->cookieName) ) {
                 return;
             }
 
             if( property_exists(\DeftCMS\Engine::$DT, 'validation') && \DeftCMS\Engine::$DT->validation->hasRequest() ) {
+
                 \DeftCMS\Engine::$DT->validation->setData('cross_request_forgery', true);
                 \DeftCMS\Engine::$DT->validation->output();
                 exit;
@@ -186,5 +187,18 @@ class CrossRequestForgery implements ICrossRequestForgery
             'name'  => $this->tokenName,
             'value' => self::$token
         ]);
+    }
+
+    /**
+     * Получить данные о текушем токене
+     * @return array
+     */
+    public function getValues()
+    {
+        return [
+            'input'     => $this->tokenName,
+            'header'    => $this->headerName,
+            'value'     => self::$token
+        ];
     }
 }
