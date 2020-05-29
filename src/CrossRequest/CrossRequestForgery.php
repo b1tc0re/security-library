@@ -1,6 +1,7 @@
 <?php  namespace DeftCMS\Components\b1tc0re\Security\CrossRequest;
 
 use DeftCMS\Components\b1tc0re\Security\CrossRequest\Interfaces\ICrossRequestForgery;
+use DeftCMS\Engine;
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
@@ -137,18 +138,20 @@ class CrossRequestForgery implements ICrossRequestForgery
             $posted_token = \DeftCMS\Engine::$DT->input->post($this->tokenName);
             $header_token = \DeftCMS\Engine::$DT->input->get_request_header($this->headerName);
 
-            if( $posted_token !== null && $posted_token != \DeftCMS\Engine::$DT->input->cookie($this->cookieName) ) {
+            if( $posted_token !== null && $posted_token == \DeftCMS\Engine::$DT->input->cookie($this->cookieName) ) {
                 return;
             }
 
-            if( $header_token !== null && $header_token !=  \DeftCMS\Engine::$DT->input->cookie($this->cookieName) ) {
+            if( $header_token !== null && $header_token ==  \DeftCMS\Engine::$DT->input->cookie($this->cookieName) ) {
                 return;
             }
 
-            if( property_exists(\DeftCMS\Engine::$DT, 'validation') && \DeftCMS\Engine::$DT->validation->hasRequest() ) {
+            Engine::$DT->load->library('validation');
 
-                \DeftCMS\Engine::$DT->validation->setData('cross_request_forgery', true);
-                \DeftCMS\Engine::$DT->validation->output();
+            if( DeftCMS\Engine::$DT->validation->hasRequest() ) {
+
+                DeftCMS\Engine::$DT->validation->setData('cross_request_forgery', true);
+                DeftCMS\Engine::$DT->validation->output();
                 exit;
             }
 
