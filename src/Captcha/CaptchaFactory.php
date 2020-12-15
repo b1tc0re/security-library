@@ -52,4 +52,13 @@ class CaptchaFactory extends Factory
         self::$handler = fn_get_module_config('captcha')['handler'];
         return parent::getHandler($handlerName ?? self::$handler, self::$validHandlers);
     }
+
+    /**
+     * Получить список обработчиков
+     * @return array
+     */
+    public static function getHandlers()
+    {
+        return self::$validHandlers;
+    }
 }
