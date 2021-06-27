@@ -109,14 +109,16 @@ class CrossRequestForgery implements ICrossRequestForgery
     {
         $output = Engine::$DT->output->get_output();
 
+        $token = xss_clean(self::$token);
+
         // Inject into form
         $output = preg_replace('/(<(form|FORM)[^>]*(method|METHOD)="(post|POST)"[^>]*>)/',
-            '$0<input type="hidden" name="' . self::getInstance()->tokenName . '" value="' . self::$token . '">',
+            '$0<input type="hidden" name="' . self::getInstance()->tokenName . '" value="' . $token . '">',
             $output);
 
         // Inject into <head>
         $output = preg_replace('/(<\/head>)/',
-            '<meta name="' . self::getInstance()->headerName . '" content="' . self::$token . '">' . '$0',
+            '<meta name="' . self::getInstance()->headerName . '" content="' . $token . '">' . '$0',
             $output);
 
 
@@ -137,12 +139,13 @@ class CrossRequestForgery implements ICrossRequestForgery
             // Is the token field set and valid?
             $posted_token = Engine::$DT->input->post($this->tokenName);
             $header_token = Engine::$DT->input->get_request_header($this->headerName);
+            $cookie_token = Engine::$DT->input->cookie($this->cookieName);
 
-            if( $posted_token !== null && $posted_token == Engine::$DT->input->cookie($this->cookieName) ) {
+            if( $posted_token !== null && $posted_token === $cookie_token ) {
                 return;
             }
 
-            if( $header_token !== null && $header_token ==  Engine::$DT->input->cookie($this->cookieName) ) {
+            if( $header_token !== null && $header_token === $cookie_token ) {
                 return;
             }
 
@@ -151,6 +154,10 @@ class CrossRequestForgery implements ICrossRequestForgery
             if( Engine::$DT->validation->hasRequest() ) {
 
                 Engine::$DT->validation->setData('cross_request_forgery', true);
+                Engine::$DT->validation->setData('task', [
+                    'updateToken' =>$cookie_token
+                ]);
+
                 Engine::$DT->validation->output();
                 exit;
             }
@@ -165,13 +172,14 @@ class CrossRequestForgery implements ICrossRequestForgery
      * Generate token and set cookie if need
      *
      * @use Создайте ловушку для post_controller_constructor и вызовите этот метод CrossRequestForgery::getInstance()->generateToken()
+     * @return void
      */
     public function generateToken()
     {
         if (Engine::$DT->input->cookie($this->cookieName) === NULL)
         {
             // Generate a token and store it on session, since old one appears to have expired.
-            self::$token = md5(uniqid() . microtime() . rand() . $this->encryptionKey);
+            self::$token = md5(uniqid('', true) . microtime() . mt_rand() . $this->encryptionKey);
 
             Engine::$DT->input->set_cookie([
                 'name'      => $this->cookieName,
@@ -183,7 +191,19 @@ class CrossRequestForgery implements ICrossRequestForgery
         else
         {
             // Set it to local variable for easy access
-            self::$token = Engine::$DT->input->cookie($this->cookieName);
+            self::$token = Engine::$DT->input->cookie($this->cookieName, true);
+
+            if( !ctype_digit(self::$token) && !preg_match('/^[a-f0-9]{32}$/i', self::$token) )
+            {
+                Engine::$DT->input->set_cookie([
+                    'name'      => $this->cookieName,
+                    'value'     => '',
+                    'httponly'  => true,
+                    'expire'    => -1
+                ]);
+
+                return $this->generateToken();
+            }
         }
 
         Engine::$DT->template->setData('crossRequest', [

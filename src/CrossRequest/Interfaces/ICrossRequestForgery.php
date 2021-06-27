@@ -30,7 +30,7 @@ interface ICrossRequestForgery
     /**
      * Generate token and set cookie if need
      * @use Create hook for post_controller_constructor and call this method CrossRequestForgery::getInstance()->generateToken()
-     *
+     * @return void
      */
     public function generateToken();
 }
