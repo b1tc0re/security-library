@@ -16,9 +16,9 @@
     }
   ],
   "require": {
+    "b1tc0re/request-client": "dev-master",
     "php": "^7.0",
-    "ext-gd": "*",
-    "b1tc0re/request-client": "^v0.0.2"
+    "ext-gd": "*"
   },
   "autoload": {
     "psr-4": {

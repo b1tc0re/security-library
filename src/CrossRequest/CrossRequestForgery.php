@@ -3,7 +3,7 @@
 use DeftCMS\Components\b1tc0re\Security\CrossRequest\Interfaces\ICrossRequestForgery;
 use DeftCMS\Engine;
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') || exit('No direct script access allowed');
 
 /**
  * Зашита от межсайтовой атак
@@ -12,8 +12,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @package	    DeftCMS
  * @category	Library
  * @author	    b1tc0re
- * @copyright   (c) 2018-2020, DeftCMS (http://deftcms.ru/)
- * @since	    Version 0.0.9
+ * @copyright   (c) 2018-2022, DeftCMS (http://deftcms.ru/)
+ * @since	    Version 0.0.9a
  */
 class CrossRequestForgery implements ICrossRequestForgery
 {

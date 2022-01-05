@@ -13,8 +13,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @package	    DeftCMS
  * @category    Core
  * @author	    b1tc0re
- * @copyright   (c) 2018-2020, DeftCMS (http://deftcms.ru/)
- * @since	    Version 0.0.9
+ * @copyright   (c) 2018-2022, DeftCMS (http://deftcms.ru/)
+ * @since	    Version 0.0.9a
  */
 class ReCaptchaV2 implements IHandler
 {
