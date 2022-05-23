@@ -154,10 +154,6 @@ class CrossRequestForgery implements ICrossRequestForgery
 
             if( Engine::$DT->validation->hasRequest() )
             {
-
-                if( false === fn_has_md5_hash($cookie_token) ) {
-                    $cookie_token = $this->generateToken();
-                }
                 Engine::$DT->validation->setData('cross_request_forgery', true);
                 Engine::$DT->validation->setData('task', [
                     'updateToken' => $cookie_token
