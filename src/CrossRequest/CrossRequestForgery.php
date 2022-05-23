@@ -163,9 +163,7 @@ class CrossRequestForgery implements ICrossRequestForgery
                     \DeftCMS\Core\RequestNotify::ERROR
                 );
 
-
                 Engine::$DT->validation->output();
-
                 exit;
             }
 
