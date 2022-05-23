@@ -1,14 +1,14 @@
 <?php namespace DeftCMS\Components\b1tc0re\Security\Attempt\Interfaces;
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') || exit('No direct script access allowed');
 
 /**
  * Интерфейс модели настроек
  *
  * @package     DeftCMS
  * @author	    b1tc0re
- * @copyright   2018-2020 DeftCMS (https://deftcms.ru/)
- * @since	    Version 0.0.9
+ * @copyright   2018-2022 DeftCMS (https://deftcms.ru/)
+ * @since	    Version 0.0.9a
  */
 interface IAttemptsType
 {
