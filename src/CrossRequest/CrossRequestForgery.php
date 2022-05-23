@@ -152,8 +152,12 @@ class CrossRequestForgery implements ICrossRequestForgery
 
             Engine::$DT->load->library('validation');
 
-            if( Engine::$DT->validation->hasRequest() ) {
+            if( Engine::$DT->validation->hasRequest() )
+            {
 
+                if( false === fn_has_md5_hash($cookie_token) ) {
+                    $cookie_token = $this->generateToken();
+                }
                 Engine::$DT->validation->setData('cross_request_forgery', true);
                 Engine::$DT->validation->setData('task', [
                     'updateToken' => $cookie_token
@@ -177,7 +181,7 @@ class CrossRequestForgery implements ICrossRequestForgery
      * Generate token and set cookie if need
      *
      * @use Создайте ловушку для post_controller_constructor и вызовите этот метод CrossRequestForgery::getInstance()->generateToken()
-     * @return void
+     * @return string
      */
     public function generateToken()
     {
@@ -215,6 +219,8 @@ class CrossRequestForgery implements ICrossRequestForgery
             'name'  => $this->tokenName,
             'value' => self::$token
         ]);
+
+        return self::$token;
     }
 
     /**
