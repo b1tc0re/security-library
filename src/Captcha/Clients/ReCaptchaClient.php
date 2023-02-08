@@ -1,7 +1,8 @@
 <?php namespace DeftCMS\Components\b1tc0re\Security\Captcha\Clients;
 
-use DeftCMS\Components\b1tc0re\Request\RequestClient;
+use DeftCMS\Components\b1tc0re\Request\RequestClient2;
 use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\RequestOptions;
 
 defined('BASEPATH') || exit('No direct script access allowed');
 
@@ -12,10 +13,10 @@ defined('BASEPATH') || exit('No direct script access allowed');
  * @package	    DeftCMS
  * @category	Model
  * @author	    b1tc0re
- * @copyright   (c) 2018-2022, DeftCMS (http://deftcms.ru/)
+ * @copyright   (c) 2018-2023, DeftCMS (http://deftcms.ru/)
  * @since	    Version 0.0.9a
  */
-class ReCaptchaClient extends RequestClient
+class ReCaptchaClient extends RequestClient2
 {
     /**
      * Сервисный домен
@@ -36,5 +37,20 @@ class ReCaptchaClient extends RequestClient
     public function siteVerify(array $params)
     {
         return $this->getServiceResponse('recaptcha/api/siteverify', 'POST', $params);
+    }
+
+    /**
+     * Send request
+     * @param string $resource
+     * @param string $method
+     * @param array $params
+     * @return mixed|\Psr\Http\Message\ResponseInterface
+     * @throws GuzzleException
+     */
+    protected function getServiceResponse($resource, $method, $params)
+    {
+        return $this->sendGuzzle($method, $resource, [
+            RequestOptions::FORM_PARAMS => $params
+        ]);
     }
 }

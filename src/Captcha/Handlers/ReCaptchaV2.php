@@ -84,7 +84,7 @@ class ReCaptchaV2 implements IHandler
      * Captcha check
      *
      * @param string $value
-     * @param string $ip_address
+     * @param string|null $ip_address
      * @return bool
      */
     public function validate(string $value, string $ip_address = null)

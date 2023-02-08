@@ -16,8 +16,8 @@
     }
   ],
   "require": {
+    "php": ">=7.2",
     "b1tc0re/request-client": "dev-master",
-    "php": "^7.0",
     "ext-gd": "*"
   },
   "autoload": {

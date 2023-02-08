@@ -15,7 +15,7 @@ defined('BASEPATH') || exit('No direct script access allowed');
  * @package	    DeftCMS
  * @category	Library
  * @author	    b1tc0re
- * @copyright   (c) 2018-2022, DeftCMS (http://deftcms.ru/)
+ * @copyright   (c) 2018-2023, DeftCMS (http://deftcms.ru/)
  * @since	    Version 0.0.9a
  */
 class CaptchaFactory extends Factory
@@ -43,7 +43,7 @@ class CaptchaFactory extends Factory
      * Создать обработчик на основе $handlerName
      * Create a handler based on $handlerName
      *
-     * @param string $handlerName
+     * @param string|null $handlerName
      * @param array $validHandlers
      * @return IHandler
      */
