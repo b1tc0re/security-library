@@ -237,7 +237,7 @@ class SystemCaptcha implements IHandler
             $rad1 = $radius * (($i + 1) / $points);
             $x1 = ($rad1 * cos($theta)) + $x_axis;
             $y1 = ($rad1 * sin($theta)) + $y_axis;
-            imageline($im, $x, $y, $x1, $y1,  $this->colors['grid']);
+            imageline($im, intval($x), intval($y), intval($x1), intval($y1),  $this->colors['grid']);
             $theta -= $thetac;
         }
 
